@@ -25,7 +25,7 @@ SECRET_KEY = '*@1k*xe*co)v=2u2n2%ac*e58$nwiv$2ya*!v$_#=j8y25$lb5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['120.92.90.76','.kingsoft.cn',]
 
 
 # Application definition
