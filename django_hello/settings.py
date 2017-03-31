@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['120.92.90.76',
                  '.kingsoft.cn',
+                 '*',
                  '127.0.0.1',
                  ]
 
