@@ -13,8 +13,11 @@ Server built:   Nov 14 2016 18:04:44
 Because the default python from the yum repository is 3.4, python 3.6.1 should been installed from source file.
   
   2.1. Install wget
+  
   [root@vm10-0-0-21 ~]# yum install wget
+  
   [root@vm10-0-0-21 ~]# wget -V
+  
   GNU Wget 1.14 built on linux-gnu.
   
   2.2 Get the latest python version and uncompress
@@ -22,41 +25,61 @@ Because the default python from the yum repository is 3.4, python 3.6.1 should b
    #wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
 
    #tar zxvf Python-3.6.1.tgz 
+  
   2.3 Install the package required by build Python
 
   # yum install zlib-devel openssl-devel tcl-devel tk-devel sqlite-devel  readline-devel gdbm-devel xz-devel, bzip2-devel  
 
   2.4. run configure to generate the makefile 
+  
   #./configure --prefix=/opt/python3 --enable-shared CFLAGS=-fPIC
 
   --prefix: the installation directory
+  
   --enable-shared: generated python shared library which will be loaded by Apache httpd server
+  
   --fPIC: for below error message
-
-relocation R_X86_64_32S against `_Py_NotImplementedStruct' can not be used when making a shared object; recompile with -fPIC /opt/python3/lib/libpython3.6m.a: could not read symbols: Bad value
+  
+  relocation R_X86_64_32S against `_Py_NotImplementedStruct' can not be used when making a shared object; recompile with -fPIC /opt/python3/lib/libpython3.6m.a: could not read symbols: Bad value
+  
   2.5. make and install
+  
   #make; make install
+  
   2.6. Modify the .bash_profile for PATH and LD_LIBRARY_PATH environment variables
-PATH=/opt/python3/bin:$PATH:$HOME/bin
-export LD_LIBRARY_PATH=/opt/python3/lib
+  
+  PATH=/opt/python3/bin:$PATH:$HOME/bin
 
-otherwise, will face following error when run python3:
-/opt/python3/bin/python3.6: error while loading shared libraries: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
+  export LD_LIBRARY_PATH=/opt/python3/lib
+
+  otherwise, will face following error when run python3:
+  
+  /opt/python3/bin/python3.6: error while loading shared libraries: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
 
 3. Configure the mod_wsgi environment
 
  3.1 create python virtual environment
+  
   #python3 -m venv django_env
 
  3.2. Install mod_wsgi module
+  
   #source django_env/bin/activate
+  
   #pip install mod_wsgi
+ 
  3.3 Verity the mod_wsgi installation
+
 (django_env) [myang@vm10-0-0-21 ~]$ pip list --format=columns
+
 Package    Version
+
 ---------- -------
+
 mod-wsgi   4.5.15 
+
 pip        9.0.1  
+
 setuptools 28.8.0 
 
 will add executable file: mod_wsgi-express in virtual environment binary directory
